@@ -1,0 +1,263 @@
+/* --- 1. CONFIGURATION & LOFI PALETTE --- */
+:root {
+    --bg-light: #FAF9F6;      /* Lofi Off-White */
+    --left-pane-bg: #F0EAD6;  /* Soft Eggshell */
+    --accent-peach: #FFDAB9;  /* Muted Peach */
+    --accent-sage: #E7EBC5;   /* Soft Sage */
+    --text-dark: #4A4A4A;     /* Soft Charcoal */
+    --text-muted: #8E8E8E;    /* Dusty Gray */
+    --white: #ffffff;
+    --brown-lofi: #5D4037;    /* Coffee Brown for Titles */
+}
+
+/* --- 2. GLOBAL RESET & BASE STYLES --- */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Subtle Paper Texture Overlay */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    opacity: 0.04;
+    pointer-events: none;
+    background-image: url('https://www.transparenttextures.com/patterns/p6.png'); 
+    z-index: 9999;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-light); }
+::-webkit-scrollbar-thumb { 
+    background: var(--accent-peach); 
+    border-radius: 10px; 
+}
+
+/* --- 3. NAVIGATION & LOGO --- */
+.navbar {
+    position: fixed;
+    top: 30px;
+    right: 40px;
+    z-index: 1000;
+}
+
+.logo-img { 
+    height: 60px; 
+    width: auto; 
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.08));
+    transition: transform 0.3s ease;
+}
+
+.logo-img:hover { transform: scale(1.05); }
+
+/* --- 4. SPLIT LAYOUT ENGINE --- */
+.split-container { display: flex; }
+
+.left-pane {
+    width: 50%;
+    height: 100vh;
+    background-color: var(--left-pane-bg);
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    /* FIXED: Centering both directions */
+    align-items: center;     
+    justify-content: center; 
+    border-right: 1px solid rgba(0,0,0,0.03);
+    padding: 40px;
+}
+
+.right-pane { 
+    width: 50%; 
+    padding: 120px 10%; 
+    background-color: var(--bg-light);
+}
+
+/* --- 5. VISUALS & INTRO --- */
+.image-frame {
+    width: 320px;
+    height: 420px;
+    background: var(--white);
+    padding: 15px;
+    border-radius: 20px;
+    /* FIXED: Softer shadow for cleaner aesthetic */
+    box-shadow: 15px 15px 0px var(--accent-peach); 
+    margin-bottom: 35px;
+}
+
+.profile-img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    border-radius: 10px;
+    display: block;
+}
+
+.intro-content {
+    /* FIXED: Centers text alignment under centered image */
+    text-align: center;
+    max-width: 90%;
+}
+
+.intro-content h1 { 
+    font-family: 'Playfair Display', serif; 
+    font-size: 2.8rem; 
+    color: var(--brown-lofi);
+    margin-bottom: 15px;
+}
+
+.subtitle { 
+    color: var(--text-dark); 
+    letter-spacing: 0.5px; 
+    font-size: 1.05rem; 
+    /* FIXED: Removed Uppercase for better flow */
+    text-transform: none; 
+    line-height: 1.5;
+    opacity: 0.9;
+}
+
+/* --- 6. FLOATING CARDS STACK --- */
+.section-block { margin-bottom: 120px; }
+
+.section-title { 
+    font-family: 'Playfair Display', serif; 
+    font-size: 2.2rem; 
+    margin-bottom: 40px;
+    color: var(--brown-lofi);
+}
+
+.projects-stack { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 40px; 
+}
+
+.floating-card {
+    background: var(--white);
+    padding: 35px;
+    border-radius: 28px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.03);
+    opacity: 0; 
+    transform: translateY(40px);
+    transition: all 0.9s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+    position: relative;
+    z-index: 1;
+}
+
+/* Staggered Zig-Zag Alignment */
+.floating-card:nth-child(odd) {
+    align-self: flex-start;
+    width: 90%;
+}
+
+.floating-card:nth-child(even) {
+    align-self: flex-end;
+    width: 90%;
+    margin-top: -40px; 
+}
+
+/* Hover & Active States */
+.floating-card.active { 
+    opacity: 1; 
+    transform: translateY(0); 
+}
+
+.floating-card:hover {
+    z-index: 20;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.07);
+    transform: scale(1.02) !important; 
+}
+
+.tag {
+    background: var(--accent-sage);
+    color: #556B2F;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 50px;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.floating-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: var(--brown-lofi);
+}
+
+/* --- 7. CONTACT & INFO --- */
+.contact-info-grid {
+    background: var(--white);
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.info-item { display: flex; flex-direction: column; gap: 8px; }
+
+.info-label { 
+    font-size: 0.7rem; 
+    text-transform: uppercase; 
+    font-weight: 700; 
+    color: var(--text-muted); 
+    letter-spacing: 1px;
+}
+
+.info-value { 
+    font-size: 1.15rem; 
+    color: var(--text-dark); 
+}
+
+.contact-link {
+    text-decoration: none;
+    color: var(--brown-lofi);
+    font-weight: 600;
+    border-bottom: 2px solid var(--accent-peach);
+    width: fit-content;
+    transition: all 0.3s ease;
+    padding-bottom: 2px;
+}
+
+.contact-link:hover { 
+    background: var(--accent-peach); 
+    padding: 2px 10px;
+    border-radius: 4px;
+}
+
+/* --- 8. RESPONSIVE QUERIES --- */
+@media (max-width: 1024px) {
+    .right-pane { padding: 100px 5%; }
+}
+
+@media (max-width: 900px) {
+    .split-container { flex-direction: column; }
+    .left-pane { 
+        width: 100%; 
+        height: auto; 
+        position: relative; 
+        padding: 80px 20px; 
+    }
+    .right-pane { 
+        width: 100%; 
+        padding: 60px 20px; 
+    }
+    .image-frame { width: 280px; height: 360px; }
+    .floating-card { width: 100% !important; margin-top: 0 !important; }
+}
